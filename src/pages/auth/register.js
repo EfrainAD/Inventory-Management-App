@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styles from "./auth.module.scss";
-import { TiUserAddOutline } from "react-icons/ti";
-import Card from "../../components/card/card";
+import React from "react"
+import { Link } from "react-router-dom"
+import styles from "./auth.module.scss"
+import { TiUserAddOutline } from "react-icons/ti"
+import Card from "../../components/card/card"
 
 const Register = () => {
   return (
