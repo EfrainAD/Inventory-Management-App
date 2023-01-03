@@ -7,10 +7,16 @@ import Register from "./pages/auth/register";
 import Reset from "./pages/auth/reset";
 import Dashboard from "./pages/dashboard/dashboard";
 import Home from "./pages/home/home";
+import axios from 'axios'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+axios.defaults.withCredentials = true
 
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
