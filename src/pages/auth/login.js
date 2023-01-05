@@ -39,7 +39,6 @@ const Login = () => {
           setIsLoading(true)
           try {
                const user = await signInUser(formData)
-               console.log('user', user)
                await dispatch(SET_LOGIN(true))
                await dispatch(SET_NAME(user.name))
                navigate('/dashboard')
