@@ -24,3 +24,18 @@ export const registerUser = async (userData) => {
           toast.error(errorMessage)
      }
 }
+export const signInUser = async (userData) => {
+     try {
+          const response = await axios.post(`${API_URL}/api/users/signin`, userData)
+          console.log('statusText', response.statusText)
+          if (response.statusText === 'OK') {
+               toast.success('User logged in successfully')
+               return response.data
+          }
+     } catch (error) {
+          const errorMessage = (error.response && error.response.data && error.response.msg) 
+          || error.message 
+          || error.toString()
+          toast.error(errorMessage)
+     }
+}
