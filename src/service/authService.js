@@ -47,3 +47,14 @@ export const signOutUser = async (userData) => {
           toast.error(errorMessage)
      }
 }
+export const sendResetEmail = async (userData) => {
+     try {
+          const response = await axios.post(`${API_URL}/api/users/forgotpassword`, userData)
+          toast.success(response.data.msg)
+     } catch (error) {
+          const errorMessage = (error.response && error.response.data && error.response.msg) 
+          || error.message 
+          || error.toString()
+          toast.error(errorMessage)
+     }
+}
