@@ -10,8 +10,8 @@ import Loader from '../../components/loader/loader'
 import { SET_LOGIN, SET_NAME } from '../../redux/features/auth/authSlice'
 
 const initialState = {
-     email: '',
-     password: '',
+     email: 'me@me.me',
+     password: 'password',
 }
 
 const Login = () => {
@@ -28,7 +28,7 @@ const Login = () => {
      const handdleSignInUser = async (e) => {
           e.preventDefault()
            // Validation
-           if (!email, !password)
+           if (!email || !password)
                return toast.error('All fields are required')
           if (password.length < 8)
                return toast.error('passowrd must be 8 characters long')
@@ -39,8 +39,8 @@ const Login = () => {
           setIsLoading(true)
           try {
                const user = await signInUser(formData)
-               await dispatch(SET_LOGIN(true))
-               await dispatch(SET_NAME(user.name))
+               dispatch(SET_LOGIN(true))
+               dispatch(SET_NAME(user.name))
                navigate('/dashboard')
                setIsLoading(false)
           } catch (error) {
