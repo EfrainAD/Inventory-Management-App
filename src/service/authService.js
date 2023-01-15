@@ -70,3 +70,15 @@ export const resetPassword = async (userData, resetToken) => {
           toast.error(errorMessage)
      }
 }
+
+export const getLoginStatus = async () => {
+     try {
+          const response = await axios.get(`${API_URL}/api/users/signedin/`)
+          return response.data
+     } catch (error) {
+          const errorMessage = (error.response && error.response.data && error.response.msg) 
+          || error.message 
+          || error.toString()
+          toast.error(errorMessage)
+     }
+}
