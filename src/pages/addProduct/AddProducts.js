@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { createProduct, selectIsLoading } from '../../redux/features/product/productSlice'
 import { useState } from 'react'
+import Loader from '../../components/loader/loader'
 
 const initalState = {
-     name: '',
-     category: '',
-     quantity: '',
-     price: '',
+     name: 'house',
+     category: 'space',
+     quantity: '1',
+     price: '1000000',
 }
 
 const AddProducts = () => {
@@ -29,8 +30,8 @@ const AddProducts = () => {
      }
 
      const handleImageChange = (e) => {
-          setProductImage(e.target.file[0])
-          setimagePreview(e.target.file[0])
+          setProductImage(e.target.files[0])
+          setimagePreview(URL.createObjectURL(e.target.files[0]))
      }
 
      const generateSKU = (category) => {
@@ -47,8 +48,10 @@ const AddProducts = () => {
           for (const key in product) {
                formData.append(key, product[key])
           }
-          formData.append('sku', generateSKU(category))
           formData.append('image', productImage)
+          formData.append('sku', generateSKU(category))
+          formData.append('description', description)
+
           console.log(...formData)
 
           await dispatch(createProduct(formData))
@@ -56,16 +59,20 @@ const AddProducts = () => {
      }
 
      return (
-          <ProductForm 
-               title='Add New Product'
-               product={product}
-               productImage={productImage}
-               imagePreview={imagePreview}
-               description={description}
-               handleInputChange={handleInputChange}
-               handleImageChange={handleImageChange}
-               saveProduct={saveProduct}
-          />
+          <>
+               {isLoading && <Loader /> }
+               <ProductForm 
+                    title='Add New Product'
+                    product={product}
+                    productImage={productImage}
+                    imagePreview={imagePreview}
+                    description={description}
+                    setDescription={setDescription}
+                    handleInputChange={handleInputChange}
+                    handleImageChange={handleImageChange}
+                    saveProduct={saveProduct}
+               />
+          </>
      )
 }
 
