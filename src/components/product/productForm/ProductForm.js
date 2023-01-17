@@ -2,7 +2,7 @@ import React from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './productForm.scss'
-import Card from '../card/card'
+import Card from '../../card/card'
 import { Fragment } from 'react';
 
 const ProductForm = ({ title, product, productImage, imagePreview, description, setDescription, handleInputChange, handleImageChange, saveProduct}) => {
