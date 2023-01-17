@@ -8,21 +8,19 @@ import { getProducts } from "../../redux/features/product/productSlice"
 const Dashboard = () => {
   useRedirectLoggedOutUser('/login')
   const dispatch = useDispatch()
+  
   const isLoggedIn =  useSelector(selectIsLoggedIn)
   const { products, isLoading, isError, message } = useSelector((state) => state.product)
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn) 
       dispatch(getProducts())
-    }
-    console.log('products', products)
-    if (isError) {
+    if (isError) 
       console.log(message)
-    }
+    
+    console.log('products', products)
+  }, [isLoggedIn, isError, dispatch, message])
   
-  }, [isLoggedIn, isError, getProducts, message])
-  
-
   return (
     <div>
       <h2>Dashboard</h2>
