@@ -6,12 +6,29 @@ import { useEffect, useState } from 'react'
 import Search from '../../search/Search'
 import { useDispatch, useSelector } from 'react-redux'
 import { fILTER_PRODUCTS, selectFilterProducts } from '../../../redux/features/product/filterSlice'
+import ReactPaginate from 'react-paginate'
 
 const ProductList = ({products, isLoadding}) => {
      const [search, setSearch] = useState('')
      const filteredProducts = useSelector(selectFilterProducts)
 
      const dispatch = useDispatch()
+
+     // START pagination
+     const itemsPerPage = 5
+     const [itemOffset, setItemOffset] = useState(0);
+     const pageCount = Math.ceil(filteredProducts.length / itemsPerPage);
+     
+     // Changes Value when itemOffset value changes.
+     const endOffset = itemOffset + itemsPerPage;
+     const currentItems = filteredProducts.slice(itemOffset, endOffset);
+     
+     // Invoke when user click to request another page.
+     const handlePageClick = (event) => {
+          const newOffset = (event.selected * itemsPerPage) % filteredProducts.length;
+          setItemOffset(newOffset);
+     }
+     // END pagination
      
      useEffect(() => {
           dispatch(fILTER_PRODUCTS({products, search}))
@@ -51,7 +68,7 @@ const ProductList = ({products, isLoadding}) => {
                               </thead>
                               <tbody>
                                    {
-                                        filteredProducts.map((product, index) => {
+                                        currentItems.map((product, index) => {
                                              const {_id, name, category, price, quantity} = product
                                              return (
                                                   <tr key={_id}>
@@ -80,6 +97,20 @@ const ProductList = ({products, isLoadding}) => {
                          </table>
                     )}
                </div>
+               <ReactPaginate
+                    breakLabel="..."
+                    nextLabel="next >"
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={pageCount}
+                    previousLabel="< previous"
+                    renderOnZeroPageCount={null}
+                    containerClassName="pagination"
+                    pageLinkClassName="page-num"
+                    previousLinkClassName="page-num"
+                    nextLinkClassName="page-num"
+                    activeLinkClassName="activePage"
+               />
           </div>
 
      </div>
