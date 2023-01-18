@@ -9,6 +9,9 @@ const initialState = {
      isSuccess: false,
      isLoading: false,
      message: '',
+     totalStoreValue: 0,
+     outOfStock: 0,
+     category: [],
 }
 
 // Create New Product
@@ -46,8 +49,13 @@ const productSlice = createSlice({
      name: 'product',
      initialState,
      reducers: {
-          CAL_STORE_VALUE(store, action) {
-               console.log('Store Value')
+          CAL_STORE_VALUE(state, action) {
+               const products = action.payload
+               const totalValue = products.reduce((sum, product) => {
+                    const {price, quantity} = product
+                    return sum += price * quantity
+                 }, 0)
+               state.totalStoreValue = totalValue
           },
      },
      extraReducers: (builder) => { 
@@ -91,5 +99,6 @@ const productSlice = createSlice({
 export const {CAL_STORE_VALUE} = productSlice.actions
 
 export const selectIsLoading = (state) => state.product.isLoading
+export const selectTotalStoreValue = (state) => state.product.totalStoreValue
 
 export default productSlice.reducer

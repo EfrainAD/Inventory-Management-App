@@ -3,14 +3,30 @@ import { AiFillDollarCircle } from 'react-icons/ai'
 import { BsCart4, BsCartX } from 'react-icons/bs'
 import { BiCategory } from 'react-icons/bi'
 import InfoBox from '../../infoBox/InfoBox'
+import { CAL_STORE_VALUE, selectTotalStoreValue } from '../../../redux/features/product/productSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
 const earningIcon = <AiFillDollarCircle size='40' color='#fff' />
 const productIcon = <BsCart4 size='40' color='#fff' />
 const categoryIcon = <BiCategory size='40' color='#fff' />
 const outOfStockIcon = <BsCartX size='40' color='#fff' />
 
+const moneyFormat = (num) => {
+
+}
 
 const ProductSummery = ({products}) => {
+  const dispatch = useDispatch()
+  // const totalStoreValue = '$' + new Intl.NumberFormat('en-US').format((useSelector(selectTotalStoreValue)))
+  const totalStoreValue = '$' + new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 2,      
+    maximumFractionDigits: 2,
+ }).format((useSelector(selectTotalStoreValue)))
+  useEffect(() => {
+    dispatch(CAL_STORE_VALUE(products))
+  })
+    
   return (
     <div className='product-summery'>
       <h3 className='--mt'>Inventory Stats</h3>
@@ -24,7 +40,7 @@ const ProductSummery = ({products}) => {
         <InfoBox
           icon={earningIcon}
           title={"Total Store Value"}
-          count={`0`}
+          count={totalStoreValue}
           bgColor="card2"
         />
         <InfoBox
