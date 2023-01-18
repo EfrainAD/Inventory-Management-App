@@ -1,6 +1,7 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import ProductList from "../../components/product/productList/ProductList"
+import ProductSummery from "../../components/product/productSummery/ProductSummery"
 import useRedirectLoggedOutUser from "../../custom-hook/useRedirectLoggedOutUser"
 import { selectIsLoggedIn } from "../../redux/features/auth/authSlice"
 import { getProducts } from "../../redux/features/product/productSlice"
@@ -23,7 +24,7 @@ const Dashboard = () => {
   
   return (
     <div>
-      <h2>Dashboard</h2>
+      <ProductSummery products={products} />
       <ProductList products={products} isloading={isLoading} />
     </div>
   )
