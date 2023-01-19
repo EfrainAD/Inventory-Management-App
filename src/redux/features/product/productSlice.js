@@ -65,8 +65,13 @@ const productSlice = createSlice({
                     totalOutOfStock+1 : totalOutOfStock, 0 )
           },
           CAL_CATEGORY(state, action) {
-               console.log('notyet')
-          }
+               const products = action.payload
+
+               const categories = products.map((product) => product.category)
+               const categorySet = [...new Set(categories)]
+               
+               state.category = categorySet
+          },
      },
      extraReducers: (builder) => { 
           builder
@@ -108,6 +113,7 @@ const productSlice = createSlice({
 
 export const {CAL_STORE_VALUE} = productSlice.actions
 export const {CAL_OUT_OF_STOCK} = productSlice.actions
+export const {CAL_CATEGORY} = productSlice.actions
 
 export const selectIsLoading = (state) => state.product.isLoading
 export const selectTotalStoreValue = (state) => state.product.totalStoreValue

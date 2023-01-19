@@ -3,7 +3,7 @@ import { AiFillDollarCircle } from 'react-icons/ai'
 import { BsCart4, BsCartX } from 'react-icons/bs'
 import { BiCategory } from 'react-icons/bi'
 import InfoBox from '../../infoBox/InfoBox'
-import { CAL_OUT_OF_STOCK, CAL_STORE_VALUE, selectCategory, selectOutOfStock, selectTotalStoreValue } from '../../../redux/features/product/productSlice'
+import { CAL_CATEGORY, CAL_OUT_OF_STOCK, CAL_STORE_VALUE, selectCategory, selectOutOfStock, selectTotalStoreValue } from '../../../redux/features/product/productSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 
@@ -25,12 +25,13 @@ const ProductSummery = ({products}) => {
     maximumFractionDigits: 2,
   }).format((useSelector(selectTotalStoreValue)))
   const outOfStock =useSelector(selectOutOfStock)
-  const category = useSelector(selectCategory)
+  const categoryLength = useSelector(selectCategory).length
   
   useEffect(() => {
     dispatch(CAL_STORE_VALUE(products))
     dispatch(CAL_OUT_OF_STOCK(products))
-  })
+    dispatch(CAL_CATEGORY(products))
+  }, [dispatch, products])
     
   return (
     <div className='product-summery'>
@@ -57,7 +58,7 @@ const ProductSummery = ({products}) => {
         <InfoBox
           icon={categoryIcon}
           title={"All Categories"}
-          count={category}
+          count={categoryLength}
           bgColor="card4"
         />
       </div>
