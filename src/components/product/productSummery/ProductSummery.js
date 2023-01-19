@@ -3,7 +3,7 @@ import { AiFillDollarCircle } from 'react-icons/ai'
 import { BsCart4, BsCartX } from 'react-icons/bs'
 import { BiCategory } from 'react-icons/bi'
 import InfoBox from '../../infoBox/InfoBox'
-import { CAL_STORE_VALUE, selectTotalStoreValue } from '../../../redux/features/product/productSlice'
+import { CAL_OUT_OF_STOCK, CAL_STORE_VALUE, selectCategory, selectOutOfStock, selectTotalStoreValue } from '../../../redux/features/product/productSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 
@@ -19,12 +19,17 @@ const moneyFormat = (num) => {
 const ProductSummery = ({products}) => {
   const dispatch = useDispatch()
   // const totalStoreValue = '$' + new Intl.NumberFormat('en-US').format((useSelector(selectTotalStoreValue)))
+  // Values from useSelector
   const totalStoreValue = '$' + new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 2,      
     maximumFractionDigits: 2,
- }).format((useSelector(selectTotalStoreValue)))
+  }).format((useSelector(selectTotalStoreValue)))
+  const outOfStock =useSelector(selectOutOfStock)
+  const category = useSelector(selectCategory)
+  
   useEffect(() => {
     dispatch(CAL_STORE_VALUE(products))
+    dispatch(CAL_OUT_OF_STOCK(products))
   })
     
   return (
@@ -46,13 +51,13 @@ const ProductSummery = ({products}) => {
         <InfoBox
           icon={outOfStockIcon}
           title={"Out of Stock"}
-          count={0}
+          count={outOfStock}
           bgColor="card3"
         />
         <InfoBox
           icon={categoryIcon}
           title={"All Categories"}
-          count={0}
+          count={category}
           bgColor="card4"
         />
       </div>
