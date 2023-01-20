@@ -29,12 +29,27 @@ export const createProduct = createAsyncThunk(
           }
      }
 )
-// Get All Product
+// Get All Products
 export const getProducts = createAsyncThunk(
      'products/getAll',
      async (_, thunkAPI) => {
           try {
                return await productService.getProducts()
+          } catch (error) {
+               const errorMessage = (error.response && error.response.data && error.response.msg) 
+               || error.message 
+               || error.toString()
+               console.log(errorMessage)
+               return thunkAPI.rejectWithValue(errorMessage)
+          }
+     }
+)
+// Get A Product
+export const getProduct = createAsyncThunk(
+     'products/getOne',
+     async (id, thunkAPI) => {
+          try {
+               return await productService.getProduct(id)
           } catch (error) {
                const errorMessage = (error.response && error.response.data && error.response.msg) 
                || error.message 
@@ -123,6 +138,23 @@ const productSlice = createSlice({
                     state.message = action.payload
                     toast.error(action.payload)
                })
+               // Get A Product
+               .addCase(getProduct.pending, (state) => {
+                    state.isLoading = true
+               })
+               .addCase(getProduct.fulfilled, (state, action) => {
+                    state.isLoading = false
+                    state.isSuccess = true
+                    state.isError = false
+                    console.log('action.payload', action.payload)
+                    state.product = action.payload
+               })
+               .addCase(getProduct.rejected, (state, action) => {
+                    state.isLoading = false
+                    state.isError = true
+                    state.message = action.payload
+                    toast.error(action.payload)
+               })
                .addCase(deleteProduct.pending, (state) => {
                     state.isLoading = true
                })
@@ -141,10 +173,12 @@ const productSlice = createSlice({
      }
 });
 
+// Actions
 export const {CAL_STORE_VALUE} = productSlice.actions
 export const {CAL_OUT_OF_STOCK} = productSlice.actions
 export const {CAL_CATEGORY} = productSlice.actions
 
+// Fetchs
 export const selectIsLoading = (state) => state.product.isLoading
 export const selectTotalStoreValue = (state) => state.product.totalStoreValue
 export const selectOutOfStock = (state) => state.product.outOfStock
