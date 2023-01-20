@@ -1,4 +1,5 @@
 import axios from "axios"
+import { toast } from "react-toastify"
 
 const API_URL = process.env.REACT_APP_BACKEND_URL
 const API_Product_URL = `${API_URL}/api/products/`
@@ -14,8 +15,16 @@ export const getProducts = async () => {
      return response.data
 }
 
+// DELETE a product
+export const deleteProduct = async (id) => {
+     const response = await axios.delete(API_Product_URL + id)
+     console.log('res', response)
+     return response.data
+}
+
 const productService = {
      createProduct,
      getProducts,
+     deleteProduct,
 }
 export default productService

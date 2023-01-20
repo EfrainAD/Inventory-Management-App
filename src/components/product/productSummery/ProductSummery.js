@@ -18,7 +18,7 @@ const moneyFormat = (num) => {
 
 const ProductSummery = ({products}) => {
   const dispatch = useDispatch()
-  // const totalStoreValue = '$' + new Intl.NumberFormat('en-US').format((useSelector(selectTotalStoreValue)))
+  
   // Values from useSelector
   const totalStoreValue = '$' + new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 2,      

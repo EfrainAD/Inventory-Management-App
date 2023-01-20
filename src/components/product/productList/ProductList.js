@@ -7,6 +7,7 @@ import Search from '../../search/Search'
 import { useDispatch, useSelector } from 'react-redux'
 import { fILTER_PRODUCTS, selectFilterProducts } from '../../../redux/features/product/filterSlice'
 import ReactPaginate from 'react-paginate'
+import { deleteProduct } from '../../../redux/features/product/productSlice'
 
 const ProductList = ({products, isLoadding}) => {
      const [search, setSearch] = useState('')
@@ -29,6 +30,10 @@ const ProductList = ({products, isLoadding}) => {
           setItemOffset(newOffset);
      }
      // END pagination
+
+     const handleDeleteProduct = (id) => {
+          dispatch(deleteProduct(id))
+     }
      
      useEffect(() => {
           dispatch(fILTER_PRODUCTS({products, search}))
@@ -86,7 +91,7 @@ const ProductList = ({products, isLoadding}) => {
                                                                  <FaEdit size='20' color='green' />
                                                             </span>
                                                             <span>
-                                                                 <FaTrashAlt size='20' color='red' />
+                                                                 <FaTrashAlt size='20' color='red' onClick={() => handleDeleteProduct(product._id)} />
                                                             </span>
                                                        </td>
                                                   </tr>
