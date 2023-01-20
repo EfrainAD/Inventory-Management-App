@@ -18,9 +18,7 @@ const Dashboard = () => {
       dispatch(getProducts())
     if (isError) 
       console.log(message)
-    
-    console.log('products', products)
-  }, [isLoggedIn, isError, dispatch, message, products])
+  }, [isLoggedIn, isError, dispatch, message])
   
   return (
     <div>

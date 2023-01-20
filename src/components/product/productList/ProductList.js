@@ -10,12 +10,17 @@ import ReactPaginate from 'react-paginate'
 import { confirmAlert } from 'react-confirm-alert'
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { deleteProduct, getProducts } from '../../../redux/features/product/productSlice'
+import { useNavigate } from 'react-router-dom'
 
 const ProductList = ({products, isLoadding}) => {
      const [search, setSearch] = useState('')
-     const filteredProducts = useSelector(selectFilterProducts)
-
      const dispatch = useDispatch()
+     const navigate = useNavigate()
+     
+     const filteredProducts = useSelector(selectFilterProducts)
+     useEffect(() => {
+          dispatch(fILTER_PRODUCTS({products, search}))
+     }, [dispatch, products, search])
 
      // START pagination
      const itemsPerPage = 5
@@ -32,11 +37,12 @@ const ProductList = ({products, isLoadding}) => {
           setItemOffset(newOffset);
      }
      // END pagination
+
      const deleteComfirmProduct = async (id) => {
           await dispatch(deleteProduct(id))
-          console.log('hi')
-          await dispatch(getProducts)
+          await dispatch(getProducts())
      }
+     // Handlers
      const handleDeleteProduct = (id) => {
           confirmAlert({
                title: 'Delete Product',
@@ -52,12 +58,11 @@ const ProductList = ({products, isLoadding}) => {
                ],
              })
      }
-     
-     useEffect(() => {
-          dispatch(fILTER_PRODUCTS({products, search}))
-     }, [dispatch, products, search])
-     
-
+     const handleViewProduct = (id) => {
+          navigate(`/dashboard/product-detail/${id}`)
+     }
+    
+     // Edit displayed Info
      const shortenText = (text, n) => {
           return text.length > n ? 
                     text.substring(0, n).concat('...') : text
@@ -73,6 +78,7 @@ const ProductList = ({products, isLoadding}) => {
                </div>
                {isLoadding && <SpinningImg />}
 
+               {/* List of Products */}
                <div className="table">
                     {!isLoadding && products.length === 0 ? (
                          <p>{products.length}-- No product found, please add a product...</p>
@@ -103,7 +109,7 @@ const ProductList = ({products, isLoadding}) => {
                                                        <td>`${price * quantity}`</td>
                                                        <td className='icons'>
                                                             <span>
-                                                                 <AiOutlineEye size='25' color='purble' />
+                                                                 <AiOutlineEye size='25' color='purble' onClick={() => handleViewProduct(product._id)}/>
                                                             </span>
                                                             <span>
                                                                  <FaEdit size='20' color='green' />
