@@ -20,7 +20,7 @@ const Dashboard = () => {
       console.log(message)
     
     console.log('products', products)
-  }, [isLoggedIn, isError, dispatch, message])
+  }, [isLoggedIn, isError, dispatch, message, products])
   
   return (
     <div>

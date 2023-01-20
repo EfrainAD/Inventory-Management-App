@@ -12,10 +12,6 @@ const productIcon = <BsCart4 size='40' color='#fff' />
 const categoryIcon = <BiCategory size='40' color='#fff' />
 const outOfStockIcon = <BsCartX size='40' color='#fff' />
 
-const moneyFormat = (num) => {
-
-}
-
 const ProductSummery = ({products}) => {
   const dispatch = useDispatch()
   

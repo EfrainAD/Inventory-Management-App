@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, isAsyncThunkAction } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify';
 import productService from '../../../service/productService';
 
@@ -46,7 +46,7 @@ export const getProducts = createAsyncThunk(
 )
 // Delete a product
 export const deleteProduct = createAsyncThunk(
-     'products/dleteProduct',
+     'products/delete',
      async (id, thunkAPI) => {
           try {
                return await productService.deleteProduct(id)
@@ -114,7 +114,7 @@ const productSlice = createSlice({
                     state.isLoading = false
                     state.isSuccess = true
                     state.isError = false
-                    console.log(action.payload)
+                    console.log('action.payload', action.payload)
                     state.products = action.payload
                })
                .addCase(getProducts.rejected, (state, action) => {

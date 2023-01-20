@@ -7,7 +7,9 @@ import Search from '../../search/Search'
 import { useDispatch, useSelector } from 'react-redux'
 import { fILTER_PRODUCTS, selectFilterProducts } from '../../../redux/features/product/filterSlice'
 import ReactPaginate from 'react-paginate'
-import { deleteProduct } from '../../../redux/features/product/productSlice'
+import { confirmAlert } from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { deleteProduct, getProducts } from '../../../redux/features/product/productSlice'
 
 const ProductList = ({products, isLoadding}) => {
      const [search, setSearch] = useState('')
@@ -30,9 +32,25 @@ const ProductList = ({products, isLoadding}) => {
           setItemOffset(newOffset);
      }
      // END pagination
-
+     const deleteComfirmProduct = async (id) => {
+          await dispatch(deleteProduct(id))
+          console.log('hi')
+          await dispatch(getProducts)
+     }
      const handleDeleteProduct = (id) => {
-          dispatch(deleteProduct(id))
+          confirmAlert({
+               title: 'Delete Product',
+               message: 'Are you sure to do this?',
+               buttons: [
+                 {
+                   label: 'Delete',
+                   onClick: () => deleteComfirmProduct(id)
+                 },
+                 {
+                   label: 'Cancel',
+                 }
+               ],
+             })
      }
      
      useEffect(() => {

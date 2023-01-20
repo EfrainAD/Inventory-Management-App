@@ -1,5 +1,4 @@
 import axios from "axios"
-import { toast } from "react-toastify"
 
 const API_URL = process.env.REACT_APP_BACKEND_URL
 const API_Product_URL = `${API_URL}/api/products/`
