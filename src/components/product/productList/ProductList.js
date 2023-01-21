@@ -61,7 +61,8 @@ const ProductList = ({products, isLoadding}) => {
      const handleViewProduct = (id) => {
           navigate(`/dashboard/product-detail/${id}`)
      }
-    
+     const handleEditProduct = (id) => navigate(`/dashboard/edit-product/${id}`)
+
      // Edit displayed Info
      const shortenText = (text, n) => {
           return text.length > n ? 
@@ -86,6 +87,7 @@ const ProductList = ({products, isLoadding}) => {
                          <table>
                               <thead>
                                    <tr>
+                                        {/* Table Headers */}
                                         <th>s/n</th>
                                         <th>Name</th>
                                         <th>Category</th>
@@ -101,18 +103,20 @@ const ProductList = ({products, isLoadding}) => {
                                              const {_id, name, category, price, quantity} = product
                                              return (
                                                   <tr key={_id}>
+                                                       {/* Info Row */}
                                                        <td>{index + 1}</td>
                                                        <td>{shortenText(name, 18)}</td>
                                                        <td>{category}</td>
                                                        <td>`${price}`</td>
                                                        <td>{quantity}</td>
                                                        <td>`${price * quantity}`</td>
+                                                       {/* Icons */}
                                                        <td className='icons'>
                                                             <span>
                                                                  <AiOutlineEye size='25' color='purble' onClick={() => handleViewProduct(product._id)}/>
                                                             </span>
                                                             <span>
-                                                                 <FaEdit size='20' color='green' />
+                                                                 <FaEdit size='20' color='green' onClick={() => handleEditProduct(product._id)}/>
                                                             </span>
                                                             <span>
                                                                  <FaTrashAlt size='20' color='red' onClick={() => handleDeleteProduct(product._id)} />

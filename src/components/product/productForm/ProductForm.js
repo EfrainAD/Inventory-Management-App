@@ -11,17 +11,18 @@ const ProductForm = ({ title, product, productImage, imagePreview, description, 
      const handleOnChange = (e) => handleInputChange(e)
      const handleDescriptionChange = (e) => setDescription(e)
      const allTextInputs = [ 'Name', 'Category', 'Quantity', 'Price']
-          .map((item, index) => 
-               <Fragment key={index}>
+          .map((item, index) => {
+               const productOjbValue = product ? product[item.toLocaleLowerCase()] : null
+               return <Fragment key={index}>
                     <label>Product {item}:</label>
                     <input 
                          type='text' 
                          placeholder={`Product ${item}`} name={item.toLowerCase()} 
-                         value={product[item.toLocaleLowerCase()]} 
+                         value={productOjbValue} 
                          onChange={handleOnChange} 
                     />
                </Fragment>
-          )
+          })
      return (
           <div className='add-product'>
                <h3 className='-mt'>{title}</h3>
@@ -47,7 +48,8 @@ const ProductForm = ({ title, product, productImage, imagePreview, description, 
                          
                          {/* All Text Input Fields */}
                          {allTextInputs}
-
+                         
+                         {/* Descriptoin */}
                          <label>Product Description: </label>
                          <ReactQuill theme='snow' value={description} onChange={handleDescriptionChange} modules={ProductForm.modules} formats={ProductForm.formats} />
                          
