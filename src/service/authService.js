@@ -8,7 +8,6 @@ export const validateEmail = (email) => {
 
      return email.match(emailValidater)
 }
-
 export const registerUser = async (userData) => {
      try {
           const response = await axios.post(`${API_URL}/api/users/register`, userData)
@@ -74,6 +73,17 @@ export const resetPassword = async (userData, resetToken) => {
 export const getLoginStatus = async () => {
      try {
           const response = await axios.get(`${API_URL}/api/users/signedin/`)
+          return response.data
+     } catch (error) {
+          const errorMessage = (error.response && error.response.data && error.response.msg) 
+          || error.message 
+          || error.toString()
+          toast.error(errorMessage)
+     }
+}
+export const getUserProfile = async () => {
+     try {
+          const response = await axios.get(`${API_URL}/api/users/getuser/`)
           return response.data
      } catch (error) {
           const errorMessage = (error.response && error.response.data && error.response.msg) 
