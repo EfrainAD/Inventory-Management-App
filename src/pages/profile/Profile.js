@@ -5,20 +5,22 @@ import Card from '../../components/card/card'
 import { SpinningImg } from '../../components/loader/loader'
 import useRedirectLoggedOutUser from '../../custom-hook/useRedirectLoggedOutUser'
 import { selectUser, SET_USER } from '../../redux/features/auth/authSlice'
-import { selectIsLoading } from '../../redux/features/product/productSlice'
 import { getUserProfile } from '../../service/authService'
 import './profile.scss'
 
 const Profile = () => {
      useRedirectLoggedOutUser('/login')
      const dispatch = useDispatch()
-     const isLoading =  useSelector(selectIsLoading)
-     const [profile] = useState(useSelector(selectUser))
+
+     const [isLoading, setIsLoading] =  useState(true)
+     const [profile, setProfile] = useState(useSelector(selectUser))
 
      useEffect(() => {
           const asyncFun = async () => {
                const user = await getUserProfile()
                dispatch(SET_USER(user))
+               setProfile(user)
+               setIsLoading(false)
           }
           asyncFun()
      }, [dispatch])
@@ -55,7 +57,7 @@ const Profile = () => {
                                    </Link>
                               </div>
                          </span>
-                         </Card>
+                    </Card>
                )
           }
           </div>

@@ -18,18 +18,18 @@ const menu = [
     childrens: [
       {
         title: "Profile",
-        path: "/profile",
+        path: "/dashboard/profile",
       },
       {
         title: "Edit Profile",
-        path: "/profile-update",
+        path: "/dashboard/profile-update",
       },
     ],
   },
   {
     title: "Report Bug",
     icon: <FaCommentAlt />,
-    path: "/contact-us",
+    path: "/dashboard/contact-us",
   },
 ];
 

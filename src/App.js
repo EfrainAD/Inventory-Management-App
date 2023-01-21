@@ -17,6 +17,7 @@ import { SET_LOGIN } from "./redux/features/auth/authSlice";
 import AddProducts from "./pages/addProduct/AddProducts";
 import ProductDetail from "./components/product/productDetail/ProductDetail";
 import EditProduct from "./pages/editProject/EditProduct";
+import Profile from "./pages/profile/Profile";
 
 axios.defaults.withCredentials = true
 
@@ -73,6 +74,13 @@ function App() {
           <Sidebar>
             <Layout>
               <EditProduct />
+            </Layout>
+          </Sidebar>
+        } />
+        <Route path="/dashboard/profile" element={
+          <Sidebar>
+            <Layout>
+              <Profile />
             </Layout>
           </Sidebar>
         } />
