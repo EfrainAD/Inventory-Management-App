@@ -18,6 +18,11 @@ export const getProduct = async (id) => {
      const response = await axios.get(API_Product_URL + id)
      return response.data[0]
 }
+// Update a Product
+export const updateProduct = async (id, formData) => {
+     const response = await axios.patch(`${API_Product_URL}${id}`, formData)
+     return response.data
+}
 // DELETE a product
 export const deleteProduct = async (id) => {
      const response = await axios.delete(API_Product_URL + id)
@@ -29,6 +34,7 @@ const productService = {
      createProduct,
      getProducts,
      getProduct,
+     updateProduct,
      deleteProduct,
 }
 export default productService

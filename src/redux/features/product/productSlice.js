@@ -29,6 +29,21 @@ export const createProduct = createAsyncThunk(
           }
      }
 )
+// Update A Product
+export const updateProduct = createAsyncThunk(
+     'products/update',
+     async ({id, formData}, thunkAPI) => {
+          try {
+               return await productService.updateProduct(id, formData)
+          } catch (error) {
+               const errorMessage = (error.response && error.response.data && error.response.msg) 
+               || error.message 
+               || error.toString()
+               console.log(errorMessage)
+               return thunkAPI.rejectWithValue(errorMessage)
+          }
+     }
+)
 // Get All Products
 export const getProducts = createAsyncThunk(
      'products/getAll',
@@ -105,6 +120,7 @@ const productSlice = createSlice({
      },
      extraReducers: (builder) => { 
           builder
+               // Create A Product
                .addCase(createProduct.pending, (state) => {
                     state.isLoading = true
                })
@@ -112,7 +128,7 @@ const productSlice = createSlice({
                     state.isLoading = false
                     state.isSuccess = true
                     state.isError = false
-                    console.log(action.payload)
+                    console.log('createProduct', action.payload)
                     state.products.push(action.payload)
                     toast.success("Product Created")
                })
@@ -122,6 +138,24 @@ const productSlice = createSlice({
                     state.message = action.payload
                     toast.error(action.payload)
                })
+               // Update A Product
+               .addCase(updateProduct.pending, (state) => {
+                    state.isLoading = true
+               })
+               .addCase(updateProduct.fulfilled, (state, action) => {
+                    state.isLoading = false
+                    state.isSuccess = true
+                    state.isError = false
+                    console.log('update product playload', action.payload)
+                    toast.success("Product Updated")
+               })
+               .addCase(updateProduct.rejected, (state, action) => {
+                    state.isLoading = false
+                    state.isError = true
+                    state.message = action.payload
+                    toast.error(action.payload)
+               })
+               // Get ALL Prodcuts
                .addCase(getProducts.pending, (state) => {
                     state.isLoading = true
                })
@@ -129,7 +163,7 @@ const productSlice = createSlice({
                     state.isLoading = false
                     state.isSuccess = true
                     state.isError = false
-                    console.log('action.payload', action.payload)
+                    console.log('getProducts action.payload', action.payload)
                     state.products = action.payload
                })
                .addCase(getProducts.rejected, (state, action) => {
@@ -146,7 +180,7 @@ const productSlice = createSlice({
                     state.isLoading = false
                     state.isSuccess = true
                     state.isError = false
-                    console.log('action.payload', action.payload)
+                    console.log('getProduct action.payload', action.payload)
                     state.product = action.payload
                })
                .addCase(getProduct.rejected, (state, action) => {
@@ -155,6 +189,7 @@ const productSlice = createSlice({
                     state.message = action.payload
                     toast.error(action.payload)
                })
+               // Delete A Product
                .addCase(deleteProduct.pending, (state) => {
                     state.isLoading = true
                })
@@ -183,5 +218,6 @@ export const selectIsLoading = (state) => state.product.isLoading
 export const selectTotalStoreValue = (state) => state.product.totalStoreValue
 export const selectOutOfStock = (state) => state.product.outOfStock
 export const selectCategory = (state) => state.product.category
+export const selectProduct = (state) => state.product.product
 
 export default productSlice.reducer
