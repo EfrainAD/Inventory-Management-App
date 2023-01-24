@@ -92,3 +92,25 @@ export const getUserProfile = async () => {
           toast.error(errorMessage)
      }
 }
+export const updateUserProfile = async (userData) => {
+     try {
+          const response = await axios.patch(`${API_URL}/api/users/updateuser/`, userData)
+          return response.data
+     } catch (error) {
+          const errorMessage = (error.response && error.response.data && error.response.msg) 
+          || error.message 
+          || error.toString()
+          toast.error(errorMessage)
+     }
+}
+export const getCloudinarySignature = async (userData) => {
+     try {
+          const response = await axios.get(`${API_URL}/api/users/cloudsignature/`)
+          return response.data
+     } catch (error) {
+          const errorMessage = (error.response && error.response.data && error.response.msg) 
+          || error.message 
+          || error.toString()
+          toast.error(errorMessage)
+     }
+}
