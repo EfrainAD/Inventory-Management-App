@@ -9,7 +9,10 @@
     span.profile-photo {
       text-align: center;
     }
-
+    // Removes lastpass from putting it's clickable icon inside the name field.
+    [data-lastpass-icon-root] {
+      display: none !important;
+    }
     img {
       width: 100%;
       max-width: 350px;
