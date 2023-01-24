@@ -18,6 +18,7 @@ import AddProducts from "./pages/addProduct/AddProducts";
 import ProductDetail from "./components/product/productDetail/ProductDetail";
 import EditProduct from "./pages/editProject/EditProduct";
 import Profile from "./pages/profile/Profile";
+import EditProfile from "./pages/profile/EditProfile";
 
 axios.defaults.withCredentials = true
 
@@ -81,6 +82,13 @@ function App() {
           <Sidebar>
             <Layout>
               <Profile />
+            </Layout>
+          </Sidebar>
+        } />
+        <Route path="dashboard/profile-update" element={
+          <Sidebar>
+            <Layout>
+              <EditProfile />
             </Layout>
           </Sidebar>
         } />

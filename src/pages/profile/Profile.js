@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Card from '../../components/card/card'
 import { SpinningImg } from '../../components/loader/loader'
 import useRedirectLoggedOutUser from '../../custom-hook/useRedirectLoggedOutUser'
-import { selectUser, SET_USER } from '../../redux/features/auth/authSlice'
+import { selectIsLoggedIn, selectUser, SET_NAME, SET_USER } from '../../redux/features/auth/authSlice'
 import { getUserProfile } from '../../service/authService'
 import './profile.scss'
 
@@ -13,12 +13,14 @@ const Profile = () => {
      const dispatch = useDispatch()
 
      const [isLoading, setIsLoading] =  useState(true)
+     const [isLoggedIn, setIsLoggedIn] = useState(useSelector(selectIsLoggedIn))
      const [profile, setProfile] = useState(useSelector(selectUser))
 
      useEffect(() => {
           const asyncFun = async () => {
                const user = await getUserProfile()
                dispatch(SET_USER(user))
+               dispatch(SET_NAME(user.name))
                setProfile(user)
                setIsLoading(false)
           }
@@ -50,7 +52,7 @@ const Profile = () => {
                                    <b>Bio : </b> {profile?.bio}
                               </p>
                               <div>
-                                   <Link to="dashboard/edit-profile">
+                                   <Link to="/dashboard/profile-update">
                                         <button className="--btn --btn-primary">
                                              Edit Profile
                                         </button>

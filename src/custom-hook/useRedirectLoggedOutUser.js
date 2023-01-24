@@ -21,7 +21,7 @@ const useRedirectLoggedOutUser = (path) => {
                }
           }
           redirectLoggedOutUser()
-     }, [])
+     }, [path, navigate, dispatch])
 }
 
 export default useRedirectLoggedOutUser
