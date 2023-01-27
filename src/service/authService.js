@@ -69,6 +69,18 @@ export const resetPassword = async (userData, resetToken) => {
           toast.error(errorMessage)
      }
 }
+export const changePassword = async (userData) => {
+     try {
+          const response = await axios.patch(`${API_URL}/api/users/changepassword`, userData)
+          toast.success(response.data.msg)
+          return response.data
+     } catch (error) {
+          const errorMessage = (error.response && error.response.data && error.response.data.msg) 
+          || error.message 
+          || error.toString()
+          toast.error(errorMessage)
+     }
+}
 
 export const getLoginStatus = async () => {
      try {

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Card from '../../components/card/card'
+import ChangePassword from '../../components/changePassword/ChangePassword'
 import Loader from '../../components/loader/loader'
 import useRedirectLoggedOutUser from '../../custom-hook/useRedirectLoggedOutUser'
 import { selectIsLoggedIn, selectUser, SET_USER, SET_NAME } from '../../redux/features/auth/authSlice'
@@ -42,37 +43,47 @@ const EditProfile = () => {
           e.preventDefault()
           setIsLoading(true)
           // Upload image to cloudinary
-          let imageURL
+          let imageURL = null
           if (userPhoto) {
                try {
-                    // Get needed auth/signature for Cludinary.
-                    const signatureObt = await getCloudinarySignature()
-                    console.log('signature', signatureObt)
-                    
-                    const {timestamp, signature, api_key} = signatureObt
-
-                    // Set up Form Data
-                    const formData = new FormData();
-                    formData.append("file", userPhoto)
-                    formData.append("api_key", api_key)
-                    formData.append("signature", signature)
-                    formData.append("timestamp", timestamp)
-                    formData.append("timestamp", timestamp)
-                    formData.append("folder", 'Inventory Management App')
-                    formData.append("public_id", user._id)
-                    
-                    // Post to Cloudinary
-                    const cloudinaryImg = await fetch('https://api.cloudinary.com/v1_1/dnzmydq91/image/upload', {
-                         method: 'POST',
-                         body: formData,
-                    })
-                    // Get URL for the new image uploaded to Cloudinary
-                    const imageData = await cloudinaryImg.json()
-                    imageURL = imageData.url
+                    if (userPhoto && (
+                         userPhoto.type === "image/jpeg" ||
+                         userPhoto.type === "image/jpg" ||
+                         userPhoto.type === "image/png")
+                    ) {
+                         // Get needed auth/signature for Cludinary.
+                         const signatureObt = await getCloudinarySignature()
+                         console.log('signature', signatureObt)
+                         
+                         const {timestamp, signature, api_key} = signatureObt
+     
+                         // Set up Form Data for the image and auth
+                         const formData = new FormData();
+                         formData.append("file", userPhoto)
+                         formData.append("api_key", api_key)
+                         formData.append("signature", signature)
+                         formData.append("timestamp", timestamp)
+                         formData.append("timestamp", timestamp)
+                         formData.append("folder", 'Inventory Management App')
+                         formData.append("public_id", user._id)
+                         
+                         // Post to Cloudinary
+                         const cloudinaryImg = await fetch('https://api.cloudinary.com/v1_1/dnzmydq91/image/upload', {
+                              method: 'POST',
+                              body: formData,
+                         })
+                         // Get URL for the new image uploaded to Cloudinary
+                         const imageData = await cloudinaryImg.json()
+                         imageURL = imageData.url
+                    } else {
+                         toast.error('Image is not a valid file type, it was ignored')
+                    }
                } catch (error) {
                     console.log('error', error)
                }
           }
+          if (imageURL === null) 
+               imageURL = user.photo
           // Patch/update the UserData
           await updateUserProfile({...user, photo: imageURL})
 
@@ -80,6 +91,7 @@ const EditProfile = () => {
           navigate('/dashboard/profile')
           setIsLoading(false)
      }
+
      return (
           <div className="profile --my2">
                {isLoading && <Loader />}
@@ -138,7 +150,7 @@ const EditProfile = () => {
                     </form>
                </Card>
                <br />
-               {/* <ChangePassword /> */}
+               <ChangePassword />
           </div>
      )
 }
