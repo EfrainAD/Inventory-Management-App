@@ -11,6 +11,7 @@ import { confirmAlert } from 'react-confirm-alert'
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { deleteProduct, getProducts } from '../../../redux/features/product/productSlice'
 import { useNavigate } from 'react-router-dom'
+import { moneyFormat } from '../../../service/productService'
 
 const ProductList = ({products, isLoadding}) => {
      const [search, setSearch] = useState('')
@@ -107,9 +108,9 @@ const ProductList = ({products, isLoadding}) => {
                                                        <td>{index + 1}</td>
                                                        <td>{shortenText(name, 18)}</td>
                                                        <td>{category}</td>
-                                                       <td>`${price}`</td>
+                                                       <td>{moneyFormat(price)}</td>
                                                        <td>{quantity}</td>
-                                                       <td>`${price * quantity}`</td>
+                                                       <td>{moneyFormat(price * quantity)}</td>
                                                        {/* Icons */}
                                                        <td className='icons'>
                                                             <span>

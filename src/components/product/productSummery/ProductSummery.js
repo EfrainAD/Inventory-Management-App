@@ -6,6 +6,7 @@ import InfoBox from '../../infoBox/InfoBox'
 import { CAL_CATEGORY, CAL_OUT_OF_STOCK, CAL_STORE_VALUE, selectCategory, selectOutOfStock, selectTotalStoreValue } from '../../../redux/features/product/productSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
+import { moneyFormat } from '../../../service/productService'
 
 const earningIcon = <AiFillDollarCircle size='40' color='#fff' />
 const productIcon = <BsCart4 size='40' color='#fff' />
@@ -16,10 +17,7 @@ const ProductSummery = ({products}) => {
   const dispatch = useDispatch()
   
   // Values from useSelector
-  const totalStoreValue = '$' + new Intl.NumberFormat('en-US', {
-    minimumFractionDigits: 2,      
-    maximumFractionDigits: 2,
-  }).format((useSelector(selectTotalStoreValue)))
+  const totalStoreValue = moneyFormat(useSelector(selectTotalStoreValue))
   const outOfStock =useSelector(selectOutOfStock)
   const categoryLength = useSelector(selectCategory).length
   

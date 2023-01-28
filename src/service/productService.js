@@ -3,6 +3,15 @@ import axios from "axios"
 const API_URL = process.env.REACT_APP_BACKEND_URL
 const API_Product_URL = `${API_URL}/api/products/`
 
+// convert price, to money format ex. $5,000.00
+export const moneyFormat = (value) => {
+    const money = new Intl.NumberFormat('en-US', {
+          minimumFractionDigits: 2,      
+          maximumFractionDigits: 2,
+        }).format(value)
+     return '$' + money
+}
+
 // Create a Product
 export const createProduct = async (formData) => {
      const response = await axios.post(API_Product_URL, formData)

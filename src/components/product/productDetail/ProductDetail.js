@@ -8,6 +8,7 @@ import { selectIsLoggedIn } from '../../../redux/features/auth/authSlice'
 import Card from '../../card/card'
 import { SpinningImg } from '../../loader/loader'
 import DOMPurify from 'dompurify'
+import { moneyFormat } from '../../../service/productService'
 
 const ProductDetail = () => {
      useRedirectLoggedOutUser('/login')
@@ -67,7 +68,7 @@ const ProductDetail = () => {
                     </p>
                     {/* Price */}
                     <p>
-                         <b>&rarr; Price : </b> {"$"} {product.price}
+                         <b>&rarr; Price : </b> {moneyFormat(product.price)}
                     </p>
                     {/* Quantity */}
                     <p>
@@ -75,8 +76,7 @@ const ProductDetail = () => {
                     </p>
                     {/* Total Stock Value */}
                     <p>
-                         <b>&rarr; Total Value in stock : </b> {"$"}
-                    {product.price * product.quantity}
+                         <b>&rarr; Total Value in stock : </b> {moneyFormat(product.price * product.quantity)}
                     </p>
                     <hr />
                     <div dangerouslySetInnerHTML={{
