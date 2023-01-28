@@ -25,12 +25,10 @@ const EditProduct = () => {
      useEffect(() => {
           dispatch(getProduct(id))
      }, [dispatch, id])
+
      useEffect(() => {
           setProduct(productEdit)
           
-          setProductImage(
-               productEdit && productEdit.image
-          )
           setimagePreview(
                productEdit && productEdit.image ? `${productEdit.image.filePath}` : null
           )
