@@ -17,7 +17,7 @@ export const registerUser = async (userData) => {
                return response.data
           }
      } catch (error) {
-          const errorMessage = (error.response && error.response.data && error.response.msg) 
+          const errorMessage = (error.response && error.response.data && error.response.data.msg) 
           || error.message 
           || error.toString()
           toast.error(errorMessage)
@@ -30,7 +30,7 @@ export const signInUser = async (userData) => {
                return response.data
           }
      } catch (error) {
-          const errorMessage = (error.response && error.response.data && error.response.msg) 
+          const errorMessage = (error.response && error.response.data && error.response.data.msg) 
           || error.message 
           || error.toString()
           toast.error(errorMessage)
@@ -40,7 +40,7 @@ export const signOutUser = async (userData) => {
      try {
           await axios.get(`${API_URL}/api/users/signout`)
      } catch (error) {
-          const errorMessage = (error.response && error.response.data && error.response.msg) 
+          const errorMessage = (error.response && error.response.data && error.response.data.msg) 
           || error.message 
           || error.toString()
           toast.error(errorMessage)
@@ -51,7 +51,7 @@ export const sendResetEmail = async (userData) => {
           const response = await axios.post(`${API_URL}/api/users/forgotpassword`, userData)
           toast.success(response.data.msg)
      } catch (error) {
-          const errorMessage = (error.response && error.response.data && error.response.msg) 
+          const errorMessage = (error.response && error.response.data && error.response.data.msg) 
           || error.message 
           || error.toString()
           toast.error(errorMessage)
@@ -63,7 +63,7 @@ export const resetPassword = async (userData, resetToken) => {
           const response = await axios.put(`${API_URL}/api/users/resetpassword/${resetToken}`, userData)
           return response.data
      } catch (error) {
-          const errorMessage = (error.response && error.response.data && error.response.msg) 
+          const errorMessage = (error.response && error.response.data && error.response.data.msg) 
           || error.message 
           || error.toString()
           toast.error(errorMessage)
@@ -87,7 +87,7 @@ export const getLoginStatus = async () => {
           const response = await axios.get(`${API_URL}/api/users/signedin/`)
           return response.data
      } catch (error) {
-          const errorMessage = (error.response && error.response.data && error.response.msg) 
+          const errorMessage = (error.response && error.response.data && error.response.data.msg) 
           || error.message 
           || error.toString()
           toast.error(errorMessage)
@@ -98,7 +98,7 @@ export const getUserProfile = async () => {
           const response = await axios.get(`${API_URL}/api/users/getuser/`)
           return response.data
      } catch (error) {
-          const errorMessage = (error.response && error.response.data && error.response.msg) 
+          const errorMessage = (error.response && error.response.data && error.response.data.msg) 
           || error.message 
           || error.toString()
           toast.error(errorMessage)
@@ -109,7 +109,7 @@ export const updateUserProfile = async (userData) => {
           const response = await axios.patch(`${API_URL}/api/users/updateuser/`, userData)
           return response.data
      } catch (error) {
-          const errorMessage = (error.response && error.response.data && error.response.msg) 
+          const errorMessage = (error.response && error.response.data && error.response.data.msg) 
           || error.message 
           || error.toString()
           toast.error(errorMessage)
@@ -120,7 +120,7 @@ export const getCloudinarySignature = async (userData) => {
           const response = await axios.get(`${API_URL}/api/users/cloudsignature/`)
           return response.data
      } catch (error) {
-          const errorMessage = (error.response && error.response.data && error.response.msg) 
+          const errorMessage = (error.response && error.response.data && error.response.data.msg) 
           || error.message 
           || error.toString()
           toast.error(errorMessage)

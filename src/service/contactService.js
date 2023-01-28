@@ -13,7 +13,7 @@ export const sendContactEmail = async (userData) => {
                return response.data
           }
      } catch (error) {
-          const errorMessage = (error.response && error.response.data && error.response.msg) 
+          const errorMessage = (error.response && error.response.data && error.response.data.msg) 
           || error.message 
           || error.toString()
           toast.error(errorMessage)

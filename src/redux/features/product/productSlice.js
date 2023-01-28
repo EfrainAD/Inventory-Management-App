@@ -21,7 +21,7 @@ export const createProduct = createAsyncThunk(
           try {
                return await productService.createProduct(formData)
           } catch (error) {
-               const errorMessage = (error.response && error.response.data && error.response.msg) 
+               const errorMessage = (error.response && error.response.data && error.response.data.msg) 
                || error.message 
                || error.toString()
                console.log(errorMessage)
@@ -36,7 +36,7 @@ export const updateProduct = createAsyncThunk(
           try {
                return await productService.updateProduct(id, formData)
           } catch (error) {
-               const errorMessage = (error.response && error.response.data && error.response.msg) 
+               const errorMessage = (error.response && error.response.data && error.response.data.msg) 
                || error.message 
                || error.toString()
                console.log(errorMessage)
@@ -51,7 +51,7 @@ export const getProducts = createAsyncThunk(
           try {
                return await productService.getProducts()
           } catch (error) {
-               const errorMessage = (error.response && error.response.data && error.response.msg) 
+               const errorMessage = (error.response && error.response.data && error.response.data.msg) 
                || error.message 
                || error.toString()
                console.log(errorMessage)
@@ -66,7 +66,7 @@ export const getProduct = createAsyncThunk(
           try {
                return await productService.getProduct(id)
           } catch (error) {
-               const errorMessage = (error.response && error.response.data && error.response.msg) 
+               const errorMessage = (error.response && error.response.data && error.response.data.msg) 
                || error.message 
                || error.toString()
                console.log(errorMessage)
@@ -81,7 +81,7 @@ export const deleteProduct = createAsyncThunk(
           try {
                return await productService.deleteProduct(id)
           } catch (error) {
-               const errorMessage = (error.response && error.response.data && error.response.msg) 
+               const errorMessage = (error.response && error.response.data && error.response.data.msg) 
                || error.message 
                || error.toString()
                console.log(errorMessage)
