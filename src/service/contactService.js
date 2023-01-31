@@ -7,9 +7,9 @@ const API_Contact_URL = `${API_URL}/api/contactus/`
 export const sendContactEmail = async (userData) => {
      try {
           const response = await axios.post(API_Contact_URL, userData)
-          
-          if (response.sussess) {
-               toast.success(response.msg)
+          console.log('response:', response)
+          if (response.data.sussess) {
+               toast.success(response.data.msg)
                return response.data
           }
      } catch (error) {
