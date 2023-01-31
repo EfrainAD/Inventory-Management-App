@@ -2,16 +2,17 @@ import React, { useState } from "react"
 import styles from "./auth.module.scss"
 import { MdPassword } from "react-icons/md"
 import Card from "../../components/card/card"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { resetPassword } from "../../service/authService"
 import { toast } from "react-toastify"
 
 const initialState = {
-  new_password: "apassword",
-  comfirm_password: "apassword",
+  new_password: "",
+  comfirm_password: "",
 }
 
 const Reset = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState(initialState)
   const {new_password, comfirm_password} = formData
   const {resetToken} =  useParams()
@@ -24,14 +25,25 @@ const Reset = () => {
     e.preventDefault()
 
     // Validation
-    if (!new_password, !comfirm_password)
-        return toast.error('All fields are required')
-    if (new_password !== comfirm_password)
-        return toast.error('Passwords do not match')
-    if (new_password.length < 8)
-        return toast.error('passowrd must be 8 characters long')
+    if (!new_password, !comfirm_password) {
+      setFormData(initialState)
+      return toast.error('All fields are required')
+    }
+    if (new_password !== comfirm_password) {
+      setFormData(initialState)
+      return toast.error('Passwords do not match')
+    }
+    if (new_password.length < 8) {
+      setFormData(initialState)
+      return toast.error('passowrd must be 8 characters long')
+    }
+
+    // Set New Password
     try {
       const data = await resetPassword({new_password, comfirm_password}, resetToken)
+      
+      setFormData(initialState)
+      navigate('/login')
       toast.success(data.msg)
     } catch (error) {
       console.log(error)
