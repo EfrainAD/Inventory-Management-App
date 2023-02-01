@@ -27,21 +27,31 @@ const Login = () => {
      }
      const handdleSignInUser = async (e) => {
           e.preventDefault()
-           // Validation
-           if (!email || !password)
+          
+          // Validation
+          if (!email || !password) {
+               setFormData({...formData, password: ''})
                return toast.error('All fields are required')
-          if (password.length < 8)
+          }
+          if (password.length < 8) {
+               setFormData({...formData, password: ''})
                return toast.error('passowrd must be 8 characters long')
-          if (!validateEmail(email))
+          }
+          if (!validateEmail(email)) {
+               setFormData(initialState)
                return toast.error('Email not valid')
+          }
           
           // Login User
           setIsLoading(true)
           try {
                const user = await signInUser(formData)
-               dispatch(SET_LOGIN(true))
-               dispatch(SET_NAME(user.name))
-               navigate('/dashboard')
+               if (user) {
+                    dispatch(SET_LOGIN(true))
+                    dispatch(SET_NAME(user.name))
+                    navigate('/dashboard')
+               }
+               setFormData({...formData, password: ''})
                setIsLoading(false)
           } catch (error) {
                setIsLoading(false)
