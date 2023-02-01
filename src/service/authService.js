@@ -11,8 +11,8 @@ export const validateEmail = (email) => {
 export const registerUser = async (userData) => {
      try {
           const response = await axios.post(`${API_URL}/api/users/register`, userData)
-          
-          if (response.statusText === 'Created') {
+          console.log('response', response)
+          if (response.status === 201) {
                toast.success('User Registered successfully')
                return response.data
           }
@@ -26,7 +26,8 @@ export const registerUser = async (userData) => {
 export const signInUser = async (userData) => {
      try {
           const response = await axios.post(`${API_URL}/api/users/signin`, userData)
-          if (response.statusText === 'OK') {
+          console.log('response', response)
+          if (response.status === 200) {
                return response.data
           }
      } catch (error) {
