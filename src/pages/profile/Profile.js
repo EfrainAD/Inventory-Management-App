@@ -24,7 +24,8 @@ const Profile = () => {
                setProfile(user)
                setIsLoading(false)
           }
-          asyncFun()
+          if (isLoggedIn) 
+               asyncFun()
      }, [dispatch])
      
      return (

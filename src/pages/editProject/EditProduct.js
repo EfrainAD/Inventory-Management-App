@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { SpinningImg } from '../../components/loader/loader'
 import ProductForm from '../../components/product/productForm/ProductForm'
 import useRedirectLoggedOutUser from '../../custom-hook/useRedirectLoggedOutUser'
+import { selectIsLoggedIn } from '../../redux/features/auth/authSlice'
 import { getProduct, getProducts, selectIsLoading, selectProduct, updateProduct } from '../../redux/features/product/productSlice'
 
 const EditProduct = () => {
@@ -12,10 +13,13 @@ const EditProduct = () => {
      const dispatch = useDispatch()
      const navigate = useNavigate()
 
+     const isLoggedIn =  useSelector(selectIsLoggedIn)
+
      const {id} =  useParams()
      const productInSlice = useSelector(selectProduct)
      const productEdit = productInSlice?._id === id ? productInSlice : null
      const isLoading = useSelector(selectIsLoading)
+     
      // Product Data
      const [product, setProduct] = useState(null)
      const [productImage, setProductImage] = useState('')
@@ -23,7 +27,8 @@ const EditProduct = () => {
      const [description, setDescription] = useState('')
      
      useEffect(() => {
-          dispatch(getProduct(id))
+          if (isLoggedIn)
+               dispatch(getProduct(id))
      }, [dispatch, id])
 
      useEffect(() => {

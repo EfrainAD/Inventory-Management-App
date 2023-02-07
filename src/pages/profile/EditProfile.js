@@ -28,7 +28,8 @@ const EditProfile = () => {
                setUser(userData)
                setIsLoading(false)
           }
-          asyncFun()
+          if (isLoggedIn) 
+               asyncFun()
      }, [dispatch])
      
      const handleInputChange = (e) => {
