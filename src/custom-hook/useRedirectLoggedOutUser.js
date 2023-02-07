@@ -15,7 +15,7 @@ const useRedirectLoggedOutUser = (path) => {
                dispatch(SET_LOGIN(loggedInStatus))
                
                if (!loggedInStatus) {
-                    toast.info('Session Expired')
+                    toast.info('You are not signed in, maybe session has expired')
                     navigate(path)
                     return
                }
