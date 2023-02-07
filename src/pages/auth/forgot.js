@@ -7,12 +7,14 @@ import Loader from "../../components/loader/loader"
 import { sendResetEmail, validateEmail } from "../../service/authService"
 
 import { toast } from "react-toastify"
+import useRedirectLoggedInUser from "../../custom-hook/useRedirectLoggedInUser"
 
 const initialState = {
      email: '',
 }
 
 const Forgot = () => {
+     useRedirectLoggedInUser()
      const navigate = useNavigate()
      const [isLoading, setIsLoading] = useState(false)
      const [formData, setFormData] = useState(initialState)

@@ -8,6 +8,7 @@ import { registerUser, validateEmail } from "../../service/authService"
 import { SET_LOGIN, SET_NAME } from "../../redux/features/auth/authSlice"
 import {useDispatch} from 'react-redux'
 import Loader from "../../components/loader/loader"
+import useRedirectLoggedInUser from "../../custom-hook/useRedirectLoggedInUser"
 
 const initialState = {
      name: '',
@@ -17,6 +18,7 @@ const initialState = {
 }
 
 const Register = () => {
+     useRedirectLoggedInUser()
      const dispatch = useDispatch()
      const navigate = useNavigate()
      const [isLoading, setIsLoading] = useState(false)

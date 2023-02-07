@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import {BiLogIn} from 'react-icons/bi'
 import Card from '../../components/card/card'
 import styles from './auth.module.scss'
 import { signInUser, validateEmail } from '../../service/authService'
 import { toast } from 'react-toastify'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/loader/loader'
-import { SET_LOGIN, SET_NAME } from '../../redux/features/auth/authSlice'
+import { selectIsLoggedIn, SET_LOGIN, SET_NAME } from '../../redux/features/auth/authSlice'
+import useRedirectLoggedInUser from '../../custom-hook/useRedirectLoggedInUser'
 
 const initialState = {
      email: 'me@me.me',
@@ -15,6 +16,7 @@ const initialState = {
 }
 
 const Login = () => {
+     useRedirectLoggedInUser()
      const dispatch = useDispatch()
      const navigate = useNavigate()
      const [isLoading, setIsLoading] = useState(false)

@@ -5,6 +5,7 @@ import Card from "../../components/card/card"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { resetPassword } from "../../service/authService"
 import { toast } from "react-toastify"
+import useRedirectLoggedInUser from "../../custom-hook/useRedirectLoggedInUser"
 
 const initialState = {
   new_password: "",
@@ -12,6 +13,7 @@ const initialState = {
 }
 
 const Reset = () => {
+  useRedirectLoggedInUser()
   const navigate = useNavigate()
   const [formData, setFormData] = useState(initialState)
   const {new_password, comfirm_password} = formData
