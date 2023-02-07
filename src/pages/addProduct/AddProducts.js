@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { createProduct, selectIsLoading } from '../../redux/features/product/productSlice'
 import { useState } from 'react'
 import Loader from '../../components/loader/loader'
+import useRedirectLoggedOutUser from '../../custom-hook/useRedirectLoggedOutUser'
 
 const initalState = {
      name: 'house',
@@ -13,6 +14,7 @@ const initalState = {
 }
 
 const AddProducts = () => {
+     useRedirectLoggedOutUser('/login')
      const dispatch = useDispatch()
      const navigate = useNavigate()
      const isLoading = useSelector(selectIsLoading)
