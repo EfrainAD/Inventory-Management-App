@@ -28,7 +28,7 @@ const ProductSummery = ({products}) => {
   }, [dispatch, products])
     
   return (
-    <div className='product-summery'>
+    <div className='product-summary'>
       <h3 className='--mt'>Inventory Stats</h3>
       <div className="info-summary">
         <InfoBox
