@@ -9,7 +9,7 @@ const useRedirectLoggedInUser = (path) => {
      const isLoggedIn = useSelector(selectIsLoggedIn)
 
      useEffect(() => {
-          if (!isLoggedIn) {
+          if (isLoggedIn) {
                navigate('/dashboard')
                toast.info('You are already Signed in.')
           }
