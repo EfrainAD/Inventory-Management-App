@@ -53,11 +53,11 @@ const Profile = () => {
                                    <b>Bio : </b> {profile?.bio}
                               </p>
                               <div>
-                                   <Link to="/dashboard/profile-update">
-                                        <button className="--btn --btn-primary">
+                                   <button className="--btn --btn-primary">
+                                        <Link to="/dashboard/profile-update">
                                              Edit Profile
-                                        </button>
-                                   </Link>
+                                        </Link>
+                                   </button>
                               </div>
                          </span>
                     </Card>
