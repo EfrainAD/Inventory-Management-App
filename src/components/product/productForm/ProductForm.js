@@ -35,6 +35,7 @@ const ProductForm = ({ title, product, productImage, imagePreview, description, 
                               <input 
                                    type='file' 
                                    name='image' 
+                                   accept='image/jpg, image/jpen, image/png'
                                    onChange={handleImage} 
                               />
                               {imagePreview !== null ? (
