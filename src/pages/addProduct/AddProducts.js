@@ -7,10 +7,10 @@ import Loader from '../../components/loader/loader'
 import useRedirectLoggedOutUser from '../../custom-hook/useRedirectLoggedOutUser'
 
 const initalState = {
-     name: 'house',
-     category: 'space',
-     quantity: '1',
-     price: '1000000',
+     name: '',
+     category: '',
+     quantity: '',
+     price: '',
 }
 
 const AddProducts = () => {
