@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import {BiLogIn} from 'react-icons/bi'
 import Card from '../../components/card/card'
 import styles from './auth.module.scss'
 import { signInUser, validateEmail } from '../../service/authService'
 import { toast } from 'react-toastify'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Loader from '../../components/loader/loader'
-import { selectIsLoggedIn, SET_LOGIN, SET_NAME } from '../../redux/features/auth/authSlice'
+import { SET_LOGIN, SET_NAME } from '../../redux/features/auth/authSlice'
 import useRedirectLoggedInUser from '../../custom-hook/useRedirectLoggedInUser'
 
 const initialState = {
@@ -22,7 +22,7 @@ const Login = () => {
      const [isLoading, setIsLoading] = useState(false)
      const [formData, setFormData] = useState(initialState)
      const {email, password} = formData
-     
+
      const handleInputChange = (e) => {
           const {name, value} = e.target
           setFormData({...formData, [name]: value})

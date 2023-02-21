@@ -5,7 +5,7 @@ import { getLoginStatus } from '../service/authService'
 import { SET_LOGIN } from '../redux/features/auth/authSlice'
 import { toast } from 'react-toastify'
 
-const useRedirectLoggedOutUser = (path) => {
+const useRedirectLoggedOutUser = (path = '/dashboard') => {
      const navigate = useNavigate()
      const dispatch = useDispatch()
 

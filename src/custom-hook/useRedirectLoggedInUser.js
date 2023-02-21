@@ -1,19 +1,27 @@
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { selectIsLoggedIn } from '../redux/features/auth/authSlice'
+import { SET_LOGIN } from '../redux/features/auth/authSlice'
+import { getLoginStatus } from '../service/authService'
 
-const useRedirectLoggedInUser = (path) => {
+const useRedirectLoggedInUser = (path = '/dashboard') => {
      const navigate = useNavigate()
-     const isLoggedIn = useSelector(selectIsLoggedIn)
-
+     const dispatch = useDispatch()
+     
      useEffect(() => {
-          if (isLoggedIn) {
-               navigate('/dashboard')
-               toast.info('You are already Signed in.')
+          const runAsync = async () => {
+               const isLoggedIn = await getLoginStatus()
+               
+               dispatch(SET_LOGIN(isLoggedIn))
+               
+               if (isLoggedIn) {
+                    navigate(path)
+                    toast.info('You are already Signed in.')
+               }
           }
-     }, [isLoggedIn])
+          runAsync()
+     }, [dispatch])
 }
 
 export default useRedirectLoggedInUser
